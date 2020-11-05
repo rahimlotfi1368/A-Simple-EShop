@@ -1,0 +1,1 @@
+﻿Install-Package Microsoft.AspNetCore.Http -Version 2.2.2

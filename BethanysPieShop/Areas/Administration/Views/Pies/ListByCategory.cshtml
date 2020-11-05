@@ -1,0 +1,11 @@
+﻿@model ViewModels.PiesListViewModel
+@{
+    ViewData["Title"] = "ListByCategory";
+}
+
+<h2>@Model.CurrentPieCategory</h2>
+@foreach (var item in Model.piesListByCategory)
+{
+    <partial name="_PieListPartial" model="item" />
+}
+

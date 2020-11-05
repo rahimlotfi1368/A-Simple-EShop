@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Models.User>
+@{
+    ViewData["Title"] = Resources.DataDictionary.ListUsers;
+}
+
+<h2>@Resources.DataDictionary.ListUsers</h2>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="bg-primary">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.EMail)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    <a asp-area="Administration" asp-controller="ManageUser" asp-action="AddUserToRole" asp-route-userName="@item.Username"><span class="glyphicon glyphicon-plus"></span> </a>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                    <a asp-area="Administration" asp-controller="ManageUser" asp-action="RemoveUserFromRole" asp-route-userName="@item.Username"><span class="glyphicon glyphicon-minus"></span> </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMail)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+
+                <td>
+                    <a asp-area="Administration" asp-controller="ManageUser" asp-action="Details" asp-route-id="@item.Id"><span class="glyphicon glyphicon-book"></span> </a> |
+                    <a asp-area="Administration" asp-controller="ManageUser" asp-action="Delete" asp-route-id="@item.Id"><span class="glyphicon glyphicon-trash"></span> </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

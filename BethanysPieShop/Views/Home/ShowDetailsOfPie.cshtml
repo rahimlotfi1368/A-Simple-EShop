@@ -1,0 +1,22 @@
+﻿@model Models.Pie
+
+<div class="thumbnail" style="height:40%;">
+    <img  alt="@Model.Name" src="~/Images/@(Model.ImageName)">
+    <div class="caption-full">
+        <h3 class="pull-right">@Model.Price.ToString("c")</h3>
+        <h3>
+            <a href="#">@Model.Name</a>
+        </h3>
+        <h4>@Model.ShortDescription</h4>
+        <p>@Model.LongDescription</p>
+        <div class="addToCart">
+            <p class="button">
+                <a class="btn btn-primary" 
+                   asp-area="Administration" 
+                   asp-controller="Shoping"
+                   asp-action="AddToCart"
+                   asp-route-id="@(Model.Id)">Add to cart</a>
+            </p>
+        </div>
+    </div>
+</div>

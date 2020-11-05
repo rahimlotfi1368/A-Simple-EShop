@@ -1,0 +1,8 @@
+﻿<li>
+    <a asp-area="Administration" asp-action="ShowCart" asp-controller="Shoping">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="badge bg-primary" id="cart-status">
+            @( ViewBag.CartItemsCount)
+        </span>
+    </a>
+</li>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ViewModels.ShowCartViewModel>
+@{
+    ViewData["Title"] = "ShowCart";
+}
+<h2>Your shopping cart</h2>
+<h4>Here are the delicious pies in your shopping cart.</h4>
+<table class="table table-bordered table-hover table-condensed">
+    <thead class="bg-primary">
+        <tr>
+            <th>Selected amount</th>
+            <th>Pie</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    <a asp-area="Administration" asp-action="Command" asp-route-id="@(line.OrderDetails.Id)" asp-route-command="Increase" >
+                        <span class="glyphicon glyphicon-plus "></span>
+                    </a>
+                    @line.OrderDetails.Amount
+                    <a asp-area="Administration" asp-action="Command" asp-route-id="@(line.OrderDetails.Id)" asp-route-command="decrease"> 
+                        <span class="glyphicon glyphicon-minus "></span>
+                    </a>
+                </td>
+                <td class="text-left">@line.OrderDetails.Pie.Name</td>
+                <td class="text-right">@line.OrderDetails.Pie.Price.ToString("c")</td>
+                <td class="text-right">
+                    @*@((line.OrderDetails.Amount * line.OrderDetails.Pie.Price).ToString("c"))*@
+                    @(line.SumOfEachOrderDetails.ToString("c"))
+                </td>
+                <td>
+                    <a asp-area="Administration" asp-action="DeleteFromCart" asp-route-id="@(line.OrderDetails.Id)"> <span class="glyphicon glyphicon-trash "></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @ViewBag.TotalOrderPrice.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<div class="text-right">
+    <a class="btn btn-primary" asp-area="Administration" asp-controller="Shoping" asp-action="CheckOut" asp-route-orderId="@(ViewBag.TheOrderId)" asp-route-orderSum="@(ViewBag.TotalOrderPrice)">Check out now!</a>
+</div>

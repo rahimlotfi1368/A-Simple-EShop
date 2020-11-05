@@ -1,0 +1,171 @@
+﻿@model ViewModels.ShowProfileInformationViewModel
+@{
+    ViewData["Title"] = Resources.DataDictionary.ShowProfileInformation;
+}
+
+<h2>@Resources.DataDictionary.ShowProfileInformation</h2>
+<div class="row">
+
+    <div class="col-md-4">
+        <img class="img-responsive thumbnail" alt="Bethany's Pie Shop'" src="~/Images/@Model.User.ImageName" />
+    </div>
+
+    <div class="col-md-8">
+        <div>
+
+            <dl class="dl-horizontal text-capitalize text-justify">
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Role)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Role.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Username)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Username)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Password)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Password)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.EMail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.EMail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.ZipCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.ZipCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.City)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.City)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.State)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.State)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.Country)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.Country)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.PhoneNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.PhoneNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.FullName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.FullName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.IsActive)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.IsActive)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.User.TotalShoping)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.User.TotalShoping)
+                </dd>
+                @*<dt>
+                    <a asp-area="" asp-action="ChangeAccountPassword" asp-controller="Account" asp-route-id="@Model.User.Id" class="btn ">@Resources.DataDictionary.ChangePassword</a>
+                </dt>*@
+                <dd>
+                    <a asp-area="" asp-action="EditProfile" asp-controller="Account" asp-route-id="@Model.User.Id" class="btn btn-group-xs">@Resources.DataDictionary.EditProfile</a>
+                </dd>
+            </dl>
+            
+        </div>
+    </div>
+
+</div>
+
+@if (Model.UserOrders.Count() == 0)
+{
+    <h3>@Resources.DataDictionary.EmptyOrderList</h3>
+}
+else
+{
+    <h3>@Resources.DataDictionary.YourOrders</h3>
+    @foreach (var item in Model.UserOrders)
+    {
+        <div class="col-md-8">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Pie Name</th>
+                        <th class="text-right">Price</th>
+                        <th class="text-right">Subtotal</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var line in Model.UserOrderDetails)
+                    {
+                        if (item.Id == line.OrderId)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @line.Amount
+                                </td>
+                                <td class="text-left">@line.Pie.Name</td>
+                                <td class="text-right">@line.Pie.Price.ToString("c")</td>
+                                <td class="text-right">
+                                    @((line.Amount * line.Pie.Price).ToString("c"))
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    }
+                </tbody>
+                <tfoot class="bg-success">
+                    <tr>
+
+                        <td colspan="3" class="text-right">@Resources.DataDictionary.OrderInfo<strong> @item.CreatedDate</strong>@Resources.DataDictionary.OrderSum</td>
+                        <td class="text-center">
+                            @item.Sum.ToString("c")
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right">
+                            <a asp-area="" asp-action="DeleteOrder" asp-controller="Account" asp-route-id="@item.Id" class="btn btn-block btn-danger">@Resources.DataDictionary.DeleteOrder</a>
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+    }
+}
+
+

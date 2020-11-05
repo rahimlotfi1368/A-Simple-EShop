@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ViewModels.ShowCartViewModel>
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading ">
+            <div class="row" style="margin-top: 3px">
+                <div class="col-md-4">
+                    <img src="/Images/@ViewBag.UserImage" class="img-circle " style="width:50px; height:50px" />
+                </div>
+                <div class="col-md-8">
+                    <h4>
+                        <span>@Resources.DataDictionary.YourShopingCartPreview</span>
+                    </h4>
+                </div>
+            </div>            
+        </div>
+        <div class="panel-body">
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="row" style="margin-top: 3px">
+                        <div class="col-md-4">
+                            <img src="/Images/@item.ImageName" class="thumbnail" style="max-width: 100%" />
+                        </div>
+                        <div class="col-md-8">
+                            <h5>@item.OrderDetails.Pie.Name <span class="badge">@item.OrderDetails.Amount</span></h5>
+                        </div>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <p class="text-muted text-center">@Resources.DataDictionary.EmptyShopingCart</p>
+            }
+        </div>
+        @if (Model.Any())
+        {
+            <div class="panel-footer">
+                <h5>@Resources.DataDictionary.YouShouldPay<span>@ViewBag.TotalOrderPrice</span></h5>
+                <a asp-area="Administration" asp-action="ShowCart" asp-controller="Shoping" class="btn btn-success btn-block">@Resources.DataDictionary.YourShopingCart</a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Models.Pie>
+@{
+    ViewData["Title"] = "PiesOftheWeekl";
+}
+
+<partial name="_CarouselPartial" model="Model" />
+<hr />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <partial name="_PieListPartial" model="item" />
+    }
+</div>
+
+@*<a asp-area="Administration" asp-controller="Pies" asp-action="Index"><h1>Pies</h1></a>
+<a asp-area="Administration" asp-controller="Catagories" asp-action="Index"><h1>Catagories</h1></a>
+<a asp-area="Administration" asp-controller="ManageUser" asp-action="ListAllUsers"><h1>user</h1></a>*@
+
